@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hex Wallpaper</string>
+    <string name="colour">Colour group</string>
+    <string name="tile_size">Tile size</string>
+    <string name="speed">Colour change speed</string>
+    <string name="example">Preview</string>
+
+    <string name="colour_default">Blue</string>
+    <string name="speed_default">Normal</string>
+    <string name="size_default">Normal</string>
+
+    <string name="blue">Blue</string>
+    <string name="green">Green</string>
+    <string name="purple">Purple</string>
+    <string name="spectrum">Spectrum</string>
+
+    <string name="slowest">Slowest</string>
+    <string name="slow">Slow</string>
+    <string name="normal">Normal</string>
+    <string name="fast">Fast</string>
+    <string name="fastest">Fastest</string>
+
+    <string name="tiny">Tiny</string>
+    <string name="small">Small</string>
+    <string name="big">Big</string>
+    <string name="large">Large</string>
+    <string name="install">Install</string>
+
+</resources>

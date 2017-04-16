@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.moorhenapps.bluehex"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    signingConfigs {
+        global {
+
+        }
+    }
+
+    def props = new Properties()
+
+    props.load(new FileInputStream(rootProject.file("release.properties")))
+    android.signingConfigs.global.storeFile rootProject.file(props.keyStore)
+    android.signingConfigs.global.storePassword props.keyStorePassword
+    android.signingConfigs.global.keyAlias props.keyAlias
+    android.signingConfigs.global.keyPassword props.keyAliasPassword
+
+    buildTypes {
+        debug{
+            signingConfig signingConfigs.global
+        }
+        release {
+            signingConfig signingConfigs.global
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent, "BlueHex_" + output.name + "_" + defaultConfig.versionName + "." + defaultConfig.versionCode + ".apk")
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
