@@ -17,7 +17,7 @@ public class GridWallpaper extends WallpaperService {
 		return new GridEngine();
 	}
 
-	public class GridEngine extends WallpaperService.Engine {
+	private class GridEngine extends WallpaperService.Engine {
 		private final Handler handler = new Handler();
 		private final Runnable drawRunner = new Runnable() {
 			@Override
@@ -68,11 +68,6 @@ public class GridWallpaper extends WallpaperService {
 
 		@Override
 		public void onTouchEvent(MotionEvent event) {
-//			if (touchEnabled) {
-//				float x = event.getX();
-//				float y = event.getY();
-//				draw();
-//			}
 		}
 
 		private void draw() {

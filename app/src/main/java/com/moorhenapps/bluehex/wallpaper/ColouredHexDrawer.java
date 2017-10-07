@@ -12,7 +12,7 @@ import com.moorhenapps.bluehex.utils.IntPoint;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ColouredHexDrawer {
+class ColouredHexDrawer {
 
     private int speed;
     private int[] colours;
@@ -42,23 +42,23 @@ public class ColouredHexDrawer {
         paint.setStrokeWidth(0);
     }
 
-    public void setSpeed(int speed) {
+    void setSpeed(int speed) {
         this.speed = speed;
         resetColours();
     }
 
-    public void setColour(Colour colour){
+    void setColour(Colour colour){
         colours = colour.getColourList();
         resetColours();
     }
 
-    public void setTileSize(int sizeDp){
+    void setTileSize(int sizeDp){
         size = sizeDp;
         halfSize = sizeDp / 2;
         calcSizes();
     }
 
-    public void setCanvasSize(int width, int height){
+    void setCanvasSize(int width, int height){
         this.width = width;
         this.height = height;
         calcSizes();
@@ -81,9 +81,9 @@ public class ColouredHexDrawer {
             corner[i] = hexCorner(center, i);
         }
         path.reset();
-        path.moveTo(corner[0].getX(), corner[0].getY());
+        path.moveTo(corner[0].x, corner[0].y);
         for(int i = 1; i < 6; i++) {
-            path.lineTo(corner[i].getX(), corner[i].getY());
+            path.lineTo(corner[i].x, corner[i].y);
         }
         path.close();
 
@@ -112,7 +112,7 @@ public class ColouredHexDrawer {
 
     private int getCellIndex(IntPoint cell){
         // r , q + r * 0.5
-        return cell.getX() + cell.getY() * horzTileCount;
+        return cell.x + cell.y * horzTileCount;
     }
 
     private float calcFraction(double start, double end){
@@ -123,10 +123,10 @@ public class ColouredHexDrawer {
     }
 
     private FloatPoint getPxCenterForCell(IntPoint cell){
-        center.setX((float) (cell.getX() * size * 1.5));
-        center.setY((float) (cell.getY() * size * 1.72));
-        if(cell.getX() % 2 == 0){
-            center.setY(center.getY() + size * 0.85f);
+        center.x = (float) (cell.x * size * 1.5);
+        center.y = (float) (cell.y * size * 1.72);
+        if(cell.x % 2 == 0){
+            center.y = center.y + size * 0.85f;
         }
         return center;
     }
@@ -136,7 +136,7 @@ public class ColouredHexDrawer {
         center = getPxCenterForCell(cell);
 
         canvas.save();
-        canvas.translate(center.getX() - halfSize, center.getY() - halfSize);
+        canvas.translate(center.x - halfSize, center.y - halfSize);
 
         float fraction = calcFraction(startTime[index], endTime[index]);
         if(fraction > 1){
@@ -156,8 +156,8 @@ public class ColouredHexDrawer {
 
     private FloatPoint hexCorner(FloatPoint center, int cornerIndex){
         double angle = 2 * Math.PI / 6 * cornerIndex;
-        corner[cornerIndex].setX((float) (center.getX() + size * Math.cos(angle)));
-        corner[cornerIndex].setY((float) (center.getY() + size * Math.sin(angle)));
+        corner[cornerIndex].x = (float) (center.x + size * Math.cos(angle));
+        corner[cornerIndex].y = (float) (center.y + size * Math.sin(angle));
         return corner[cornerIndex];
     }
 
