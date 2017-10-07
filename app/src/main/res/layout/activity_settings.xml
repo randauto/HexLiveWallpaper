@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
     android:id="@+id/root"
-              android:orientation="vertical"
-              android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SettingsActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,13 +21,6 @@
                 android:id="@+id/hex_example"
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:text="@string/speed" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,13 +135,14 @@
     </ScrollView>
 
     <View
-        android:background="#aaaaaa"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="#aaaaaa" />
+
     <Button
-        style="@android:style/Widget.Material.Button.Borderless"
         android:id="@+id/install"
-        android:text="@string/install"
+        style="@android:style/Widget.Material.Button.Borderless"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@string/install" />
 </LinearLayout>

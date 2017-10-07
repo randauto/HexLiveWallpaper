@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.moorhenapps.bluehex"
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.1.0"
     }
 
     signingConfigs {
@@ -32,7 +32,7 @@ android {
         }
         release {
             signingConfig signingConfigs.global
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -45,7 +45,5 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.0.1'
 }
 

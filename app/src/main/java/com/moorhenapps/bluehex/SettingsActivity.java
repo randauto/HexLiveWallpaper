@@ -1,10 +1,10 @@
 package com.moorhenapps.bluehex;
 
+import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
@@ -16,7 +16,7 @@ import com.moorhenapps.bluehex.wallpaper.HexView;
 
 import static com.moorhenapps.bluehex.utils.PrefsHelper.MAX_SPEED_OFFSET;
 
-public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class SettingsActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 
     private PrefsHelper prefsHelper;
 
@@ -104,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         if (sizeButton != null) {
             sizeButton.performClick();
         } else {
-            findViewById(R.id.normal).performClick();
+            findViewById(R.id.size_normal).performClick();
         }
 
 		int idx = (speed - MAX_SPEED_OFFSET) / 500;

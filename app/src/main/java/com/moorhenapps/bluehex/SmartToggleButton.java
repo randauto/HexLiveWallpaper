@@ -2,15 +2,15 @@ package com.moorhenapps.bluehex;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
-class SmartToggleButton extends AppCompatButton {
+public class SmartToggleButton extends Button {
     private int accentColour;
     private ArrayList<SmartToggleButton> otherButtons = new ArrayList<>();
 
