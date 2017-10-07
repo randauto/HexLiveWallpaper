@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class HexView extends View {
-    private ColouredHexDrawer hexDrawer;
+    public ColouredHexDrawer hexDrawer;
 
     public HexView(Context context) {
         this(context, null, 0, 0);

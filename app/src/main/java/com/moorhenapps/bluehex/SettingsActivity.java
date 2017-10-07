@@ -8,16 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.moorhenapps.bluehex.utils.Colour;
 import com.moorhenapps.bluehex.utils.PrefsHelper;
 import com.moorhenapps.bluehex.wallpaper.GridWallpaper;
 import com.moorhenapps.bluehex.wallpaper.HexView;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.moorhenapps.bluehex.utils.PrefsHelper.MAX_SPEED_OFFSET;
 
@@ -25,44 +20,57 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 
     private PrefsHelper prefsHelper;
 
+    private View root;
 	private Colour colour;
 	private int speed;
 	private PrefsHelper.Size size;
 
-	@Bind(R.id.hex_example)
-	HexView exampleView;
+	private HexView exampleView;
 
-	@Bind(R.id.speed) SeekBar speedBar;
-
-	@Bind(R.id.tiny) TextView sizeTiny;
-	@Bind(R.id.small) TextView sizeSmall;
-	@Bind(R.id.size_normal) TextView sizeNormal;
-	@Bind(R.id.big) TextView sizeBig;
-	@Bind(R.id.large) TextView sizeLarge;
-	@Bind({R.id.tiny, R.id.small, R.id.size_normal, R.id.big, R.id.large}) View[] sizeButtons;
-
-	@Bind(R.id.blue) TextView colourBlue;
-	@Bind(R.id.green) TextView colourGreen;
-	@Bind(R.id.purple) TextView colourPurple;
-	@Bind(R.id.spectrum) TextView colourSpectrum;
-	@Bind({R.id.blue, R.id.green, R.id.purple, R.id.spectrum}) View[] colourButtons;
+	private SeekBar speedBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-		ButterKnife.bind(this);
+
+        root = findViewById(R.id.root);
+
+        exampleView = findViewById(R.id.hex_example);
+        speedBar = findViewById(R.id.speed);
+
+		findViewById(R.id.blue).setOnClickListener(onColourClick);
+		findViewById(R.id.green).setOnClickListener(onColourClick);
+		findViewById(R.id.red).setOnClickListener(onColourClick);
+		findViewById(R.id.grey).setOnClickListener(onColourClick);
+		findViewById(R.id.purple).setOnClickListener(onColourClick);
+
+        findViewById(R.id.tiny).setOnClickListener(onSizeClick);
+        findViewById(R.id.small).setOnClickListener(onSizeClick);
+        findViewById(R.id.size_normal).setOnClickListener(onSizeClick);
+        findViewById(R.id.big).setOnClickListener(onSizeClick);
+        findViewById(R.id.large).setOnClickListener(onSizeClick);
 
         prefsHelper = new PrefsHelper(this);
 
         exampleView.post(new Runnable() {
 			@Override
 			public void run() {
-				exampleView.getHexDrawer().setCanvasSize(exampleView.getWidth(), exampleView.getHeight());
+				exampleView.hexDrawer.setCanvasSize(exampleView.getWidth(), exampleView.getHeight());
 			}
 		});
 
 		speedBar.setOnSeekBarChangeListener(this);
+
+        findViewById(R.id.install).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(SettingsActivity.this, GridWallpaper.class));
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 	private void runDemo(){
@@ -82,38 +90,33 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         super.onResume();
 
 		colour = prefsHelper.getColour();
-		if(!validateToggleBar(colour.name(), colourButtons)){
-			colour = Colour.BLUE;
-			colourBlue.setBackgroundResource(R.drawable.selection_bar);
-		}
+        speed = prefsHelper.getSpeed();
+        size = prefsHelper.getSize();
 
-		speed = prefsHelper.getSpeed();
+        View colourButton = root.findViewWithTag(colour.name());
+        if (colourButton != null) {
+            colourButton.performClick();
+        } else {
+            findViewById(R.id.blue).performClick();
+        }
+
+        View sizeButton = root.findViewWithTag(size.name());
+        if (sizeButton != null) {
+            sizeButton.performClick();
+        } else {
+            findViewById(R.id.normal).performClick();
+        }
+
 		int idx = (speed - MAX_SPEED_OFFSET) / 500;
 		speedBar.setProgress(idx);
 
-		size = prefsHelper.getSize();
-		if(!validateToggleBar(size.name(), sizeButtons)){
-			size = PrefsHelper.Size.NORMAL;
-			sizeNormal.setBackgroundResource(R.drawable.selection_bar);
-		}
+        exampleView.hexDrawer.setSpeed(speed);
 
-        exampleView.getHexDrawer().setTileSize(size.getDp(getResources()));
-        exampleView.getHexDrawer().setColour(colour);
-        exampleView.getHexDrawer().setSpeed(speed);
+
         Log.d("Settings", String.format("Speed: %s, Size: %s, Colour: %s", speed, size, colour));
 
 		runDemo();
     }
-
-	private boolean validateToggleBar(String target, View[] buttons){
-		for(View view : buttons){
-			if(view.getTag().equals(target)){
-				view.setBackgroundResource(R.drawable.selection_bar);
-				return true;
-			}
-		}
-		return false;
-	}
 
     @Override
     protected void onPause() {
@@ -125,37 +128,27 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 		exampleView.removeCallbacks(invalidateExample);
     }
 
-	@OnClick(R.id.install)
-	public void onInstallClick(View view){
-		Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-		intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(SettingsActivity.this, GridWallpaper.class));
-		startActivity(intent);
-		finish();
-	}
+    private View.OnClickListener onSizeClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            size = PrefsHelper.Size.valueOf((String) view.getTag());
+            exampleView.hexDrawer.setTileSize(size.getDp(getResources()));
+            view.setSelected(true);
+        }
+    };
 
-	@OnClick({R.id.tiny, R.id.small, R.id.size_normal, R.id.big, R.id.large})
-	public void onSizeClick(View v){
-		for(View button : sizeButtons){
-			button.setBackground(null);
+	private View.OnClickListener onColourClick = new View.OnClickListener() {
+		@Override
+		public void onClick(View view) {
+			colour = Colour.valueOf((String) view.getTag());
+			exampleView.hexDrawer.setColour(colour);
+            view.setSelected(true);
 		}
-		size = PrefsHelper.Size.valueOf((String) v.getTag());
-		sizeButtons[size.ordinal()].setBackgroundResource(R.drawable.selection_bar);
-		exampleView.getHexDrawer().setTileSize(size.getDp(getResources()));
-	}
-
-	@OnClick({R.id.blue, R.id.green, R.id.purple, R.id.spectrum})
-	public void onColourClick(View v){
-		for(View button : colourButtons){
-			button.setBackground(null);
-		}
-		colour = Colour.valueOf((String) v.getTag());
-		colourButtons[colour.ordinal()].setBackgroundResource(R.drawable.selection_bar);
-		exampleView.getHexDrawer().setColour(colour);
-	}
+	};
 
 	@Override
 	public void onProgressChanged(final SeekBar seekBar, final int progress, final boolean fromUser) {
-		exampleView.getHexDrawer().setSpeed((500 * seekBar.getMax() + MAX_SPEED_OFFSET) - (progress * 500));
+		exampleView.hexDrawer.setSpeed((500 * seekBar.getMax() + MAX_SPEED_OFFSET) - (progress * 500));
 	}
 
 	@Override

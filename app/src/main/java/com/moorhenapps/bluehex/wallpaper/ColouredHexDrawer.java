@@ -12,7 +12,7 @@ import com.moorhenapps.bluehex.utils.IntPoint;
 import java.util.Arrays;
 import java.util.Random;
 
-class ColouredHexDrawer {
+public class ColouredHexDrawer {
 
     private int speed;
     private int[] colours;
@@ -42,23 +42,23 @@ class ColouredHexDrawer {
         paint.setStrokeWidth(0);
     }
 
-    void setSpeed(int speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
         resetColours();
     }
 
-    void setColour(Colour colour){
-        colours = colour.getColourList();
+    public void setColour(Colour colour){
+        colours = colour.colours;
         resetColours();
     }
 
-    void setTileSize(int sizeDp){
+    public void setTileSize(int sizeDp){
         size = sizeDp;
         halfSize = sizeDp / 2;
         calcSizes();
     }
 
-    void setCanvasSize(int width, int height){
+    public void setCanvasSize(int width, int height){
         this.width = width;
         this.height = height;
         calcSizes();
@@ -177,4 +177,6 @@ class ColouredHexDrawer {
                 (startG + (int)(fraction * (endG - startG))) << 8 |
                 (startB + (int)(fraction * (endB - startB)));
     }
+
+
 }

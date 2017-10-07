@@ -2,7 +2,7 @@ package com.moorhenapps.bluehex.utils;
 
 import android.graphics.Color;
 
-enum Colour {
+public enum Colour {
     BLUE(
             Color.parseColor("#239dce"),
             Color.parseColor("#2192bc"),
@@ -72,7 +72,7 @@ enum Colour {
             Color.parseColor("#ffa500")
     );
 
-    final int[] colours;
+    public final int[] colours;
 
     Colour(int... colours) {
       this.colours = colours;

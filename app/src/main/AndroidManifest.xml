@@ -28,6 +28,7 @@
         </service>
 
         <activity android:name=".SettingsActivity"
+            android:screenOrientation="sensorPortrait"
             android:exported="true" >
             <intent-filter>
                 <category android:name="android.intent.category.PREFERENCE" />
