@@ -123,11 +123,12 @@ public class ColouredHexDrawer {
     }
 
     private FloatPoint getPxCenterForCell(IntPoint cell){
-        center.x = (float) (cell.x * size * 1.5);
-        center.y = (float) (cell.y * size * 1.72);
+        center.x = cell.x * size * 1.5f;
+        center.y = cell.y * size * 1.72f;
         if(cell.x % 2 == 0){
             center.y = center.y + size * 0.85f;
         }
+        center.y -= size;
         return center;
     }
 

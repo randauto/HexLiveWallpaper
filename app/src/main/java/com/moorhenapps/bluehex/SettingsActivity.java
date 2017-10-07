@@ -73,18 +73,6 @@ public class SettingsActivity extends Activity implements SeekBar.OnSeekBarChang
         });
     }
 
-	private void runDemo(){
-		exampleView.postDelayed(invalidateExample, 8);
-		exampleView.invalidate();
-	}
-
-	private Runnable invalidateExample = new Runnable() {
-		@Override
-		public void run() {
-			runDemo();
-		}
-	};
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -114,8 +102,6 @@ public class SettingsActivity extends Activity implements SeekBar.OnSeekBarChang
 
 
         Log.d("Settings", String.format("Speed: %s, Size: %s, Colour: %s", speed, size, colour));
-
-		runDemo();
     }
 
     @Override
@@ -125,7 +111,6 @@ public class SettingsActivity extends Activity implements SeekBar.OnSeekBarChang
         prefsHelper.setSpeed(speed);
         prefsHelper.setSize(size);
         prefsHelper.setColour(colour);
-		exampleView.removeCallbacks(invalidateExample);
     }
 
     private View.OnClickListener onSizeClick = new View.OnClickListener() {
