@@ -33,7 +33,7 @@ public class PrefsHelper {
     }
 
     public void setSize(Size size){
-        preferences.edit().putString(PREF_SIZE, size.name()).commit();
+        preferences.edit().putString(PREF_SIZE, size.name()).apply();
     }
 
     public Size getSize(){
@@ -42,7 +42,7 @@ public class PrefsHelper {
 
 
     public void setColour(Colour colour){
-        preferences.edit().putString(PREF_COLOUR, colour.name()).commit();
+        preferences.edit().putString(PREF_COLOUR, colour.name()).apply();
     }
 
     public Colour getColour(){
@@ -50,7 +50,7 @@ public class PrefsHelper {
     }
 
     public void setSpeed(int speed){
-        preferences.edit().putInt(PREF_SPEED_INT, speed).commit();
+        preferences.edit().putInt(PREF_SPEED_INT, speed).apply();
     }
 
     public int getSpeed(){
