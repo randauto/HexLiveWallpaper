@@ -1,9 +1,6 @@
 package com.moorhenapps.bluehex;
 
 import android.app.Activity;
-import android.app.WallpaperManager;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +8,6 @@ import android.widget.SeekBar;
 
 import com.moorhenapps.bluehex.utils.Colour;
 import com.moorhenapps.bluehex.utils.PrefsHelper;
-import com.moorhenapps.bluehex.wallpaper.GridWallpaper;
 import com.moorhenapps.bluehex.wallpaper.HexView;
 
 import static com.moorhenapps.bluehex.utils.PrefsHelper.MAX_SPEED_OFFSET;
@@ -61,16 +57,6 @@ public class SettingsActivity extends Activity implements SeekBar.OnSeekBarChang
 		});
 
 		speedBar.setOnSeekBarChangeListener(this);
-
-        findViewById(R.id.install).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(SettingsActivity.this, GridWallpaper.class));
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     @Override

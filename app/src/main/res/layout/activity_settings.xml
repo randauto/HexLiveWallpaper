@@ -133,16 +133,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#aaaaaa" />
-
-    <Button
-        android:id="@+id/install"
-        style="@android:style/Widget.Material.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/install" />
 </LinearLayout>
