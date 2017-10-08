@@ -32,7 +32,7 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:padding="8dp"
-                    android:text="@string/slowest" />
+                    android:text="@string/fastest" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -40,7 +40,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:padding="8dp"
-                    android:text="@string/fastest" />
+                    android:text="@string/slowest" />
             </LinearLayout>
 
             <SeekBar
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_marginBottom="8dp"
-                android:max="10" />
+                android:max="30" />
 
             <TextView
                 android:layout_width="wrap_content"

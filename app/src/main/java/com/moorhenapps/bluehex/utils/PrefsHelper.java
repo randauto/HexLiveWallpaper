@@ -7,7 +7,8 @@ import android.util.TypedValue;
 
 public class PrefsHelper {
 
-    public static final int MAX_SPEED_OFFSET = 500;
+    private static final int SPEED_INCREMENT = 100;
+    private static final int DEFAULT_SPEED = 1;
 
     public enum Size {
         TINY(6), SMALL(10), NORMAL(12), BIG(14), LARGE(18);
@@ -25,7 +26,8 @@ public class PrefsHelper {
 
     private static final String PREF_SIZE = "size.enum";
     private static final String PREF_COLOUR = "colour.enum";
-    private static final String PREF_SPEED_INT = "speed.int";
+    private static final String PREF_SPEED_INT = "speed2.int";
+    private static final String PREF_SPEED_SETTING_INT = "speed_setting.int";
     private SharedPreferences preferences;
 
     public PrefsHelper(Context ctx){
@@ -40,7 +42,6 @@ public class PrefsHelper {
         return Size.valueOf(preferences.getString(PREF_SIZE, Size.NORMAL.name()));
     }
 
-
     public void setColour(Colour colour){
         preferences.edit().putString(PREF_COLOUR, colour.name()).apply();
     }
@@ -49,11 +50,22 @@ public class PrefsHelper {
         return Colour.valueOf(preferences.getString(PREF_COLOUR, Colour.BLUE.name()));
     }
 
-    public void setSpeed(int speed){
-        preferences.edit().putInt(PREF_SPEED_INT, speed).apply();
+    public void setSpeedSetting(int speedSetting){
+        preferences.edit()
+                .putInt(PREF_SPEED_SETTING_INT, speedSetting)
+                .putInt(PREF_SPEED_INT, speedSetting * SPEED_INCREMENT)
+                .apply();
+    }
+
+    public int getSpeedSetting(){
+        return preferences.getInt(PREF_SPEED_SETTING_INT, DEFAULT_SPEED);
     }
 
     public int getSpeed(){
-        return preferences.getInt(PREF_SPEED_INT, MAX_SPEED_OFFSET);
+        return preferences.getInt(PREF_SPEED_INT, SPEED_INCREMENT);
+    }
+
+    public SharedPreferences getPreferences() {
+        return preferences;
     }
 }
