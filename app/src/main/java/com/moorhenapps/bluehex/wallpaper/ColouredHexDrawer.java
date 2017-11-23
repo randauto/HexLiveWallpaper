@@ -12,6 +12,10 @@ import com.moorhenapps.bluehex.utils.IntPoint;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * See https://www.redblobgames.com/grids/hexagons/ to understand coord system
+ */
+
 public class ColouredHexDrawer {
 
     private int speed;

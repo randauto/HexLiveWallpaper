@@ -3,7 +3,6 @@ package com.moorhenapps.bluehex.wallpaper;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.moorhenapps.bluehex.utils.PrefsHelper;
@@ -67,7 +66,9 @@ public class GridWallpaper extends WallpaperService {
 		}
 
 		@Override
-		public void onTouchEvent(MotionEvent event) {
+		public void onSurfaceRedrawNeeded(SurfaceHolder holder) {
+			super.onSurfaceRedrawNeeded(holder);
+			draw();
 		}
 
 		private void draw() {

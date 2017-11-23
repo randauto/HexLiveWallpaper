@@ -2,19 +2,18 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "27.0.1"
 
     defaultConfig {
         applicationId "com.moorhenapps.bluehex"
         minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 3
-        versionName "1.2.0"
+        targetSdkVersion 26
+        versionCode 4
+        versionName "1.2.1"
     }
 
     signingConfigs {
         global {
-
         }
     }
 
@@ -38,8 +37,8 @@ android {
     }
 
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            output.outputFile = new File(output.outputFile.parent, "BlueHex_" + output.name + "_" + defaultConfig.versionName + "." + defaultConfig.versionCode + ".apk")
+        variant.outputs.all {
+            outputFileName = "${variant.name}-${variant.versionName}-${variant.versionCode}.apk"
         }
     }
 }
