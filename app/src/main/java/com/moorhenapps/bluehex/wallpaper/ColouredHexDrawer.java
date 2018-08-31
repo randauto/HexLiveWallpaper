@@ -52,7 +52,7 @@ public class ColouredHexDrawer {
     }
 
     public void setColour(Colour colour){
-        colours = colour.colours;
+        colours = colour.getColours();
         resetColours();
     }
 

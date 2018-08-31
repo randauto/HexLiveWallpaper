@@ -7,26 +7,31 @@
     <string name="speed">Colour change speed</string>
     <string name="example">Preview</string>
 
-    <string name="colour_default">Blue</string>
-    <string name="speed_default">Normal</string>
-    <string name="size_default">Normal</string>
+    <string name="colour_default">BLUE</string>
+    <string name="speed_default">SLOW</string>
+    <string name="size_default">LARGE</string>
 
     <string name="blue">Ocean</string>
     <string name="green">Nature</string>
-    <string name="grey">Grey&#8203;scale</string>
+    <string name="grey">Grey</string>
     <string name="red">Sunset</string>
     <string name="purple">Royalty</string>
+    <string name="nexus">Nexus</string>
+    <string name="pink">Pink</string>
+    <string name="pastel">Pastel</string>
+    <string name="rainbow">Rainbow</string>
+    <string name="retro">Retro</string>
+    <string name="gold">Gold</string>
+    <string name="dark">Dark</string>
 
-    <string name="slowest">Slowest</string>
     <string name="slow">Slow</string>
     <string name="normal">Normal</string>
     <string name="fast">Fast</string>
-    <string name="fastest">Fastest</string>
 
-    <string name="tiny">Tiny</string>
     <string name="small">Small</string>
-    <string name="big">Big</string>
+    <string name="medium">Medium</string>
     <string name="large">Large</string>
+
     <string name="install">Install</string>
 
 </resources>

@@ -73,8 +73,8 @@ public class HexView extends View implements Runnable, SharedPreferences.OnShare
 
     private void updateHexDrawer() {
         hexDrawer.setColour(prefsHelper.getColour());
-        hexDrawer.setSpeed(prefsHelper.getSpeed());
-        hexDrawer.setTileSize(prefsHelper.getSize().getDp(getResources()));
+        hexDrawer.setSpeed(prefsHelper.getSpeed().getMs());
+        hexDrawer.setTileSize(prefsHelper.getSize().dp(getResources()));
     }
 
     @Override

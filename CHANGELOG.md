@@ -1,3 +1,7 @@
+#### 1.3.1
+
+- Show colour palette as background for buttons (thanks to Harry Bartlam)
+
 #### 1.2.0
 
 - Remove install button from settings screen

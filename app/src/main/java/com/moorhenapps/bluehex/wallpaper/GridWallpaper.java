@@ -40,8 +40,8 @@ public class GridWallpaper extends WallpaperService {
 			if (visible) {
                 PrefsHelper prefs = new PrefsHelper(GridWallpaper.this);
                 colouredHexDrawer.setColour(prefs.getColour());
-                colouredHexDrawer.setTileSize(prefs.getSize().getDp(getResources()));
-                colouredHexDrawer.setSpeed(prefs.getSpeed());
+                colouredHexDrawer.setTileSize(prefs.getSize().dp(getResources()));
+                colouredHexDrawer.setSpeed(prefs.getSpeed().getMs());
                 handler.removeCallbacks(drawRunner);
 				handler.post(drawRunner);
 			} else {
@@ -60,8 +60,8 @@ public class GridWallpaper extends WallpaperService {
             super.onSurfaceChanged(holder, format, width, height);
             PrefsHelper prefs = new PrefsHelper(GridWallpaper.this);
             colouredHexDrawer.setColour(prefs.getColour());
-            colouredHexDrawer.setTileSize(prefs.getSize().getDp(getResources()));
-            colouredHexDrawer.setSpeed(prefs.getSpeed());
+            colouredHexDrawer.setTileSize(prefs.getSize().dp(getResources()));
+            colouredHexDrawer.setSpeed(prefs.getSpeed().getMs());
             colouredHexDrawer.setCanvasSize(width, height);
 		}
 
