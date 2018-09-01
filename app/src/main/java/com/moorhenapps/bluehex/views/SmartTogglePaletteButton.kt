@@ -1,18 +1,32 @@
 package com.moorhenapps.bluehex.views
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import com.moorhenapps.bluehex.R
 import com.moorhenapps.bluehex.utils.Colour
 
-class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : Button(context, attrs, defStyleAttr) {
+class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
     private val otherButtons = ArrayList<SmartTogglePaletteButton>()
     private var paints: List<Paint>
+    private val text: String
+    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18f, resources.displayMetrics)
+        style = Paint.Style.FILL
+        textAlign = Paint.Align.CENTER
+        isDither = true
+    }
+    private val outlineTextPaint = Paint(textPaint).apply {
+        style = Paint.Style.STROKE
+        strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics)
+    }
+
     val colour: Colour
 
     private var textSelectedColour = Color.BLACK
@@ -35,9 +49,11 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
             array.recycle()
         }
 
+        textPaint.color = textUnselectedColour
+        outlineTextPaint.color = textUnselectedBkColour
         colour = Colour.valueOf(tag as String)
 
-        setText(colour.nameRes)
+        text = resources.getString(colour.nameRes)
         paints = Colour.valueOf(tag as String).colours.map {
             Paint().apply {
                 this.color = it
@@ -56,8 +72,6 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
                 }
             }
         }
-
-        setShadow(textUnselectedBkColour)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -71,7 +85,10 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
             start += colorWidth
         }
 
-        super.onDraw(canvas)
+        val x = width * 0.5f
+        val y = height * 0.6f
+        canvas.drawText(text, x, y, outlineTextPaint)
+        canvas.drawText(text, x, y, textPaint)
     }
 
     override fun setSelected(selected: Boolean) {
@@ -81,18 +98,15 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
                 button.isSelected = false
             }
         }
-        setTextColor(if (selected) textSelectedColour else textUnselectedColour)
 
         if (selected) {
-            setShadow(textSelectedBkColour)
+            textPaint.color = textSelectedColour
+            outlineTextPaint.color = textSelectedBkColour
         } else {
-            setShadow(textUnselectedBkColour)
+            textPaint.color = textUnselectedColour
+            outlineTextPaint.color = textUnselectedBkColour
         }
 
         invalidate()
-    }
-
-    private fun setShadow(colour: Int) {
-        setShadowLayer(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics), 0f, 0f, colour)
     }
 }
