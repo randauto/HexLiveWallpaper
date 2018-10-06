@@ -1,3 +1,8 @@
+#### 1.3.3
+
+- Allow user to toggle launcher icon
+- Add set wallpaper button in settings activity
+
 #### 1.3.2
 
 - Allow rotation on wallpaper settings activity
