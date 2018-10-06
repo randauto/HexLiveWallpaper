@@ -1,3 +1,9 @@
+#### 1.3.2
+
+- Allow rotation on wallpaper settings activity
+- Slightly reduce memory usage
+- Slightly Reduce APK file size
+
 #### 1.3.1
 
 - Show colour palette as background for buttons (thanks to Harry Bartlam)
