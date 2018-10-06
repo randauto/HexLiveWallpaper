@@ -5,7 +5,6 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5e5e5"
     tools:context=".SettingsActivity">
 
     <com.moorhenapps.bluehex.wallpaper.HexView
@@ -17,12 +16,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/buttons"
+    <Button
+        android:id="@+id/set_wallpaper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/button"
+        android:visibility="gone"
+        android:elevation="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="@string/set_wallpaper"
+        app:layout_constraintRight_toRightOf="@id/hex_example"
+        app:layout_constraintTop_toTopOf="@id/hex_example" />
+
+    <FrameLayout
+        android:background="@drawable/switch_gradient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/hex_example"
+        app:layout_constraintRight_toRightOf="@id/hex_example">
+
+        <Switch
+            android:id="@+id/show_app_icon"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/settings_horz_padding"
+            android:paddingRight="@dimen/settings_horz_padding"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:switchPadding="8dp"
+            android:text="@string/show_hide_app_icon" />
+    </FrameLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/buttons"
+        android:background="@color/settings_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/settings_horz_padding"
+        android:paddingRight="@dimen/settings_horz_padding"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hex_example">
