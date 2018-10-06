@@ -39,8 +39,8 @@ class PrefsHelper(ctx: Context) {
         }
 
     companion object {
-        private val PREF_SIZE = "new_size.enum"
-        private val PREF_COLOUR = "new_colour.enum"
-        private val PREF_SPEED = "new_speed.enum"
+        private const val PREF_SIZE = "new_size.enum"
+        private const val PREF_COLOUR = "new_colour.enum"
+        private const val PREF_SPEED = "new_speed.enum"
     }
 }
