@@ -3,6 +3,7 @@
 - Allow rotation on wallpaper settings activity
 - Slightly reduce memory usage
 - Slightly Reduce APK file size
+- Allow access to settings activity from the launcher now
 
 #### 1.3.1
 
