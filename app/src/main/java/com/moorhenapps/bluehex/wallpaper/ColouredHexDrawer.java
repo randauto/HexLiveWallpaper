@@ -107,9 +107,10 @@ public class ColouredHexDrawer {
     }
 
     void draw(Canvas canvas){
+        long now = System.currentTimeMillis();
         for(int x = 0; x < horzTileCount; x++){
             for(int y = 0; y < vertTileCount; y++){
-                drawHexCell(canvas, hexPoint.set(x, y));
+                drawHexCell(canvas, hexPoint.set(x, y), now);
             }
         }
     }
@@ -119,11 +120,11 @@ public class ColouredHexDrawer {
         return cell.x + cell.y * horzTileCount;
     }
 
-    private float calcFraction(double start, double end){
+    private float calcFraction(double start, double end, long now){
         if(end - start == 0){
             return 0;
         }
-        return (float) ((System.currentTimeMillis() - start) / (end - start));
+        return (float) ((now - start) / (end - start));
     }
 
     private FloatPoint getPxCenterForCell(IntPoint cell){
@@ -136,14 +137,14 @@ public class ColouredHexDrawer {
         return center;
     }
 
-    private void drawHexCell(Canvas canvas, IntPoint cell){
+    private void drawHexCell(Canvas canvas, IntPoint cell, long now){
         int index = getCellIndex(cell);
         center = getPxCenterForCell(cell);
 
         canvas.save();
         canvas.translate(center.x - halfSize, center.y - halfSize);
 
-        float fraction = calcFraction(startTime[index], endTime[index]);
+        float fraction = calcFraction(startTime[index], endTime[index], now);
         if(fraction > 1){
             fraction = 0;
             currentColour[index] = targetColour[index];
