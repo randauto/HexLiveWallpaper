@@ -4,6 +4,8 @@ A live wallpaper for android that fills the screen with hexagons that change col
 
 Available on the [Play Store](https://play.google.com/store/apps/details?id=com.moorhenapps.bluehex)
 
+![Feature image](https://raw.githubusercontent.com/raybritton/HexLiveWallpaper/master/feature%20graphic.jpg)
+
 ## License
 
 ```
