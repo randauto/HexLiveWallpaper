@@ -1,3 +1,7 @@
+#### 1.4.0
+
+- Add advanced settings
+
 #### 1.3.3
 
 - Allow user to toggle launcher icon
