@@ -2,4 +2,5 @@
 <resources>
     <dimen name="button_roundness">64dp</dimen>
     <dimen name="settings_horz_padding">4dp</dimen>
+    <dimen name="panel_size">40dp</dimen>
 </resources>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.moorhenapps.bluehex.utils.PrefsHelper;
@@ -73,8 +74,14 @@ public class HexView extends View implements Runnable, SharedPreferences.OnShare
 
     private void updateHexDrawer() {
         hexDrawer.setColour(prefsHelper.getColour());
-        hexDrawer.setSpeed(prefsHelper.getSpeed().getMs());
-        hexDrawer.setTileSize(prefsHelper.getSize().dp(getResources()));
+        if (prefsHelper.getAdvancedSettings()) {
+            hexDrawer.setSpeed(prefsHelper.getAdvSpeed());
+            int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, prefsHelper.getAdvSize(), getResources().getDisplayMetrics());
+            hexDrawer.setTileSize(size);
+        } else {
+            hexDrawer.setSpeed(prefsHelper.getSpeed().getMs());
+            hexDrawer.setTileSize(prefsHelper.getSize().dp(getResources()));
+        }
     }
 
     @Override

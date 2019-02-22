@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.util.TypedValue
 import android.view.View
+import android.widget.SeekBar
 import com.moorhenapps.bluehex.utils.Colour
 import com.moorhenapps.bluehex.utils.PrefsHelper
 import com.moorhenapps.bluehex.wallpaper.GridWallpaper
@@ -71,8 +72,56 @@ class SettingsActivity : Activity() {
 
         prefsHelper = PrefsHelper(this)
 
+        speed_bar.progress = ((prefsHelper.advSpeed / 10000.0) * 100).toInt()
+        size_bar.progress = (((prefsHelper.advSize - 10) / 25.0) * 100).toInt()
+
+        speed_bar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val percent = Math.max(progress,1) / 100.0
+                    val value = percent * 10000.0
+                    prefsHelper.advSpeed = value.toInt()
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        size_bar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val percent = Math.max(progress,1) / 100.0
+                    val value = (percent * 25.0) + 10
+                    prefsHelper.advSize = value.toInt()
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
         set_wallpaper.setOnClickListener {
             startActivityForResult(wallpaperIntent, REQUEST_SET_WALLPAPER)
+        }
+
+        showControls()
+
+        settings_toggle.setOnClickListener {
+            prefsHelper.advancedSettings = !prefsHelper.advancedSettings
+            showControls()
+        }
+    }
+
+    private fun showControls() {
+        if (prefsHelper.advancedSettings) {
+            advanced.visibility = View.VISIBLE
+            buttons.visibility = View.GONE
+        } else {
+            advanced.visibility = View.GONE
+            buttons.visibility = View.VISIBLE
         }
     }
 
@@ -156,10 +205,10 @@ class SettingsActivity : Activity() {
                     set_wallpaper.layoutParams = params
                 }
                 run {
-                    val params = buttons.layoutParams
+                    val params = palette.layoutParams
                             ?: ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
                     (params as ConstraintLayout.LayoutParams).bottomMargin = insets.systemWindowInsetBottom
-                    buttons.layoutParams = params
+                    palette.layoutParams = params
                 }
                 insets.consumeSystemWindowInsets()
             }

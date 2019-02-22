@@ -11,7 +11,7 @@
         android:id="@+id/hex_example"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttons"
+        app:layout_constraintBottom_toTopOf="@+id/wallpaper_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,118 +22,178 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/button"
-        android:visibility="gone"
         android:elevation="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:paddingLeft="12dp"
+        android:paddingTop="8dp"
         android:paddingRight="12dp"
+        android:paddingBottom="8dp"
         android:text="@string/set_wallpaper"
         app:layout_constraintRight_toRightOf="@id/hex_example"
         app:layout_constraintTop_toTopOf="@id/hex_example" />
 
     <FrameLayout
-        android:background="@drawable/switch_gradient"
+        android:paddingStart="@dimen/settings_horz_padding"
+        android:paddingEnd="@dimen/settings_horz_padding"
+        android:id="@+id/wallpaper_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/hex_example"
+        android:background="@color/settings_background"
+        app:layout_constraintBottom_toTopOf="@+id/controls_container"
+
         app:layout_constraintRight_toRightOf="@id/hex_example">
+
+        <ImageView
+            android:id="@+id/settings_toggle"
+            android:layout_width="@dimen/panel_size"
+            android:layout_height="@dimen/panel_size"
+            android:layout_gravity="center_vertical"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/accessibility_advanced_settings"
+            android:padding="12dp"
+            android:src="@drawable/ic_settings" />
 
         <Switch
             android:id="@+id/show_app_icon"
-            android:layout_gravity="end"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/settings_horz_padding"
-            android:paddingRight="@dimen/settings_horz_padding"
+            android:layout_height="@dimen/panel_size"
+            android:layout_gravity="end"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:switchPadding="8dp"
             android:text="@string/show_hide_app_icon" />
     </FrameLayout>
 
+    <FrameLayout
+        app:layout_constraintBottom_toTopOf="@+id/palette"
+        android:id="@+id/controls_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/settings_background"
+            android:paddingLeft="@dimen/settings_horz_padding"
+            android:paddingRight="@dimen/settings_horz_padding">
+
+            <com.moorhenapps.bluehex.views.SmartToggleButton
+                android:id="@+id/speed_slow"
+                style="@style/ToggleBarButton"
+                android:tag="SLOW"
+                android:text="@string/slow"
+                app:group="SPEED"
+                app:layout_constraintEnd_toStartOf="@id/speed_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.moorhenapps.bluehex.views.SmartToggleButton
+                android:id="@+id/speed_medium"
+                style="@style/ToggleBarButton"
+                android:tag="MEDIUM"
+                android:text="@string/medium"
+                app:group="SPEED"
+                app:layout_constraintEnd_toStartOf="@id/speed_fast"
+                app:layout_constraintStart_toEndOf="@id/speed_slow"
+                app:layout_constraintTop_toTopOf="@id/speed_slow" />
+
+            <com.moorhenapps.bluehex.views.SmartToggleButton
+                android:id="@+id/speed_fast"
+                style="@style/ToggleBarButton"
+                android:tag="FAST"
+                android:text="@string/fast"
+                app:group="SPEED"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/speed_medium"
+                app:layout_constraintTop_toTopOf="@id/speed_slow" />
+
+
+            <com.moorhenapps.bluehex.views.SmartToggleButton
+                android:id="@+id/size_small"
+                style="@style/ToggleBarButton"
+                android:layout_marginTop="16dp"
+                android:tag="SMALL"
+                android:text="@string/small"
+                app:group="SIZE"
+                app:layout_constraintEnd_toStartOf="@id/size_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/speed_slow" />
+
+            <com.moorhenapps.bluehex.views.SmartToggleButton
+                android:id="@+id/size_medium"
+                style="@style/ToggleBarButton"
+                android:tag="MEDIUM"
+                android:text="@string/medium"
+                app:group="SIZE"
+                app:layout_constraintEnd_toStartOf="@id/size_large"
+                app:layout_constraintStart_toEndOf="@id/size_small"
+                app:layout_constraintTop_toTopOf="@id/size_small" />
+
+            <com.moorhenapps.bluehex.views.SmartToggleButton
+                android:id="@+id/size_large"
+                style="@style/ToggleBarButton"
+                android:tag="LARGE"
+                android:text="@string/large"
+                app:group="SIZE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/size_medium"
+                app:layout_constraintTop_toTopOf="@id/size_small" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/advanced"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/settings_background"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/settings_horz_padding"
+            android:paddingRight="@dimen/settings_horz_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/advanced_speed" />
+
+            <SeekBar
+                android:id="@+id/speed_bar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:max="100" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/advanced_size" />
+
+            <SeekBar
+                android:id="@+id/size_bar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:max="100" />
+        </LinearLayout>
+
+    </FrameLayout>
+
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/buttons"
-        android:background="@color/settings_background"
+        android:id="@+id/palette"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/settings_background"
         android:paddingLeft="@dimen/settings_horz_padding"
         android:paddingRight="@dimen/settings_horz_padding"
         android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hex_example">
-
-        <com.moorhenapps.bluehex.views.SmartToggleButton
-            android:id="@+id/speed_slow"
-            style="@style/ToggleBarButton"
-            android:tag="SLOW"
-            android:text="@string/slow"
-            app:group="SPEED"
-            app:layout_constraintEnd_toStartOf="@id/speed_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.moorhenapps.bluehex.views.SmartToggleButton
-            android:id="@+id/speed_medium"
-            style="@style/ToggleBarButton"
-            android:tag="MEDIUM"
-            android:text="@string/medium"
-            app:group="SPEED"
-            app:layout_constraintEnd_toStartOf="@id/speed_fast"
-            app:layout_constraintStart_toEndOf="@id/speed_slow"
-            app:layout_constraintTop_toTopOf="@id/speed_slow" />
-
-        <com.moorhenapps.bluehex.views.SmartToggleButton
-            android:id="@+id/speed_fast"
-            style="@style/ToggleBarButton"
-            android:tag="FAST"
-            android:text="@string/fast"
-            app:group="SPEED"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/speed_medium"
-            app:layout_constraintTop_toTopOf="@id/speed_slow" />
-
-
-        <com.moorhenapps.bluehex.views.SmartToggleButton
-            android:id="@+id/size_small"
-            style="@style/ToggleBarButton"
-            android:layout_marginTop="16dp"
-            android:tag="SMALL"
-            android:text="@string/small"
-            app:group="SIZE"
-            app:layout_constraintEnd_toStartOf="@id/size_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/speed_slow" />
-
-        <com.moorhenapps.bluehex.views.SmartToggleButton
-            android:id="@+id/size_medium"
-            style="@style/ToggleBarButton"
-            android:tag="MEDIUM"
-            android:text="@string/medium"
-            app:group="SIZE"
-            app:layout_constraintEnd_toStartOf="@id/size_large"
-            app:layout_constraintStart_toEndOf="@id/size_small"
-            app:layout_constraintTop_toTopOf="@id/size_small" />
-
-        <com.moorhenapps.bluehex.views.SmartToggleButton
-            android:id="@+id/size_large"
-            style="@style/ToggleBarButton"
-            android:tag="LARGE"
-            android:text="@string/large"
-            app:group="SIZE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/size_medium"
-            app:layout_constraintTop_toTopOf="@id/size_small" />
-
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.moorhenapps.bluehex.views.SmartTogglePaletteButton
             android:id="@+id/colour_blue"
             style="@style/PaletteButton"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:tag="BLUE"
             app:layout_constraintEnd_toStartOf="@id/colour_green"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/size_small" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.moorhenapps.bluehex.views.SmartTogglePaletteButton
             android:id="@+id/colour_green"
@@ -228,4 +288,5 @@
             app:layout_constraintTop_toTopOf="@+id/colour_gold" />
 
     </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

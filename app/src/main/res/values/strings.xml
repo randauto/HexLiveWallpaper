@@ -32,8 +32,12 @@
     <string name="medium">Medium</string>
     <string name="large">Large</string>
 
+    <string name="advanced_speed">Speed</string>
+    <string name="advanced_size">Size</string>
+
     <string name="install">Install</string>
     <string name="show_hide_app_icon">Show/Hide App Icon</string>
     <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="accessibility_advanced_settings">Advanced settings</string>
 
 </resources>

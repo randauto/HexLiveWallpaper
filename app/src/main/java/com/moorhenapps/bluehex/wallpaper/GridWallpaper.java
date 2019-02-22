@@ -3,6 +3,7 @@ package com.moorhenapps.bluehex.wallpaper;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
+import android.util.TypedValue;
 import android.view.SurfaceHolder;
 
 import com.moorhenapps.bluehex.utils.PrefsHelper;
@@ -40,8 +41,14 @@ public class GridWallpaper extends WallpaperService {
 			if (visible) {
                 PrefsHelper prefs = new PrefsHelper(GridWallpaper.this);
                 colouredHexDrawer.setColour(prefs.getColour());
-                colouredHexDrawer.setTileSize(prefs.getSize().dp(getResources()));
-                colouredHexDrawer.setSpeed(prefs.getSpeed().getMs());
+				if (prefs.getAdvancedSettings()) {
+					colouredHexDrawer.setSpeed(prefs.getAdvSpeed());
+					int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, prefs.getAdvSize(), getResources().getDisplayMetrics());
+					colouredHexDrawer.setTileSize(size);
+				} else {
+					colouredHexDrawer.setSpeed(prefs.getSpeed().getMs());
+					colouredHexDrawer.setTileSize(prefs.getSize().dp(getResources()));
+				}
                 handler.removeCallbacks(drawRunner);
 				handler.post(drawRunner);
 			} else {
@@ -60,8 +67,14 @@ public class GridWallpaper extends WallpaperService {
             super.onSurfaceChanged(holder, format, width, height);
             PrefsHelper prefs = new PrefsHelper(GridWallpaper.this);
             colouredHexDrawer.setColour(prefs.getColour());
-            colouredHexDrawer.setTileSize(prefs.getSize().dp(getResources()));
-            colouredHexDrawer.setSpeed(prefs.getSpeed().getMs());
+			if (prefs.getAdvancedSettings()) {
+				colouredHexDrawer.setSpeed(prefs.getAdvSpeed());
+				int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, prefs.getAdvSize(), getResources().getDisplayMetrics());
+				colouredHexDrawer.setTileSize(size);
+			} else {
+				colouredHexDrawer.setSpeed(prefs.getSpeed().getMs());
+				colouredHexDrawer.setTileSize(prefs.getSize().dp(getResources()));
+			}
             colouredHexDrawer.setCanvasSize(width, height);
 		}
 

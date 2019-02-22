@@ -38,9 +38,30 @@ class PrefsHelper(ctx: Context) {
             preferences.edit().putString(PREF_COLOUR, value.name).apply()
         }
 
+    var advSpeed: Int
+        get() = preferences.getInt(PREF_ADV_SPEED, 3000)
+        set(value) {
+            preferences.edit().putInt(PREF_ADV_SPEED, value).apply()
+        }
+
+    var advSize: Int
+        get() = preferences.getInt(PREF_ADV_SIZE, 16)
+        set(value) {
+            preferences.edit().putInt(PREF_ADV_SIZE, value).apply()
+        }
+
+    var advancedSettings: Boolean
+        get() = preferences.getBoolean(PREF_ADVANCED, false)
+        set(value) {
+            preferences.edit().putBoolean(PREF_ADVANCED, value).apply()
+        }
+
     companion object {
         private const val PREF_SIZE = "new_size.enum"
         private const val PREF_COLOUR = "new_colour.enum"
         private const val PREF_SPEED = "new_speed.enum"
+        private const val PREF_ADVANCED = "advanced. bool"
+        private const val PREF_ADV_SPEED = "adv_speed.int"
+        private const val PREF_ADV_SIZE = "adv_size.int"
     }
 }
