@@ -24,10 +24,10 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
     }
     private val outlineTextPaint = Paint(textPaint).apply {
         style = Paint.Style.STROKE
-        strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics)
+        strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics)
     }
 
-    val colour: Colour
+    private val colour: Colour
 
     private var textSelectedColour = Color.BLACK
     private var textUnselectedColour = Color.WHITE
