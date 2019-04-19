@@ -22,7 +22,7 @@ class SettingsActivity : Activity() {
 
     private val sizeButtons by lazy { listOf(size_small, size_medium, size_large) }
     private val speedButtons by lazy { listOf(speed_slow, speed_medium, speed_fast) }
-    private val colourButtons by lazy { listOf(colour_blue, colour_green, colour_red, colour_grey, colour_rainbow, colour_dark, colour_pastel, colour_gold, colour_nexus, colour_purple, colour_retro, colour_pink) }
+    private val colourButtons by lazy { listOf(colour_blue, colour_green, colour_red, colour_grey, colour_lgbt, colour_dark, colour_pastel, colour_gold, colour_nexus, colour_purple, colour_retro, colour_pink, colour_asex, colour_bisex, colour_nonbinary, colour_trans) }
 
     private val wallpaperManager by lazy { getSystemService(Context.WALLPAPER_SERVICE) as WallpaperManager }
 

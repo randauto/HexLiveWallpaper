@@ -19,10 +19,15 @@
     <string name="nexus">Nexus</string>
     <string name="pink">Pink</string>
     <string name="pastel">Pastel</string>
-    <string name="rainbow">Rainbow</string>
     <string name="retro">Retro</string>
     <string name="gold">Gold</string>
     <string name="dark">Stormy</string>
+    <string name="lgbt">LGBT Pride</string>
+    <string name="pansex">Pansexual</string>
+    <string name="asex">Asexual</string>
+    <string name="bisex">Bisexual</string>
+    <string name="trans">Trans</string>
+    <string name="nonbinary">Non-Binary</string>
 
     <string name="slow">Slow</string>
     <string name="normal">Normal</string>
