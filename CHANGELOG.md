@@ -1,3 +1,8 @@
+#### 1.5.0
+
+- Add LGBT colour sets
+- Improve readability and accessibility for palette buttons
+
 #### 1.4.0
 
 - Add advanced settings
