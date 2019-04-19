@@ -102,8 +102,8 @@ enum class Colour constructor(val nameRes: Int, val useLightIcons: Boolean, vara
             Color.parseColor("#f9aab9"),
             Color.parseColor("#ffffff")),
     NONBINARY(R.string.nonbinary, true,
-            Color.parseColor("#fff34f"),
             Color.parseColor("#9c5cce"),
+            Color.parseColor("#fff34f"),
             Color.parseColor("#000000"),
             Color.parseColor("#ffffff"))
 }
