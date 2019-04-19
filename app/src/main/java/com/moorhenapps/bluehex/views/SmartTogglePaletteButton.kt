@@ -4,6 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Build
+import android.system.Os
+import android.text.Layout
+import android.text.StaticLayout
+import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -17,13 +22,13 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
     private val otherButtons = ArrayList<SmartTogglePaletteButton>()
     private var paints: List<Paint>
     private val text: String
-    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
         textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18f, resources.displayMetrics)
         style = Paint.Style.FILL
-        textAlign = Paint.Align.CENTER
-        isDither = true
+        letterSpacing = 0.05f
+        isSubpixelText = true
     }
-    private val outlineTextPaint = Paint(textPaint).apply {
+    private val outlineTextPaint = TextPaint(textPaint).apply {
         style = Paint.Style.STROKE
         strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics)
     }
@@ -34,6 +39,9 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
     private var textUnselectedColour = Color.WHITE
     private var textSelectedBkColour = Color.WHITE
     private var textUnselectedBkColour = Color.BLACK
+
+    private lateinit var outlineTextLayout: Layout
+    private lateinit var textLayout: Layout
 
     init {
 
@@ -76,6 +84,20 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
         }
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        textLayout = makeLayout(text, textPaint)
+        outlineTextLayout = makeLayout(text, outlineTextPaint)
+    }
+
+    private fun makeLayout(text: String, paint: TextPaint): Layout {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            StaticLayout(text, paint, (measuredWidth * 0.9f).toInt(), Layout.Alignment.ALIGN_CENTER, 1f, 0f, true)
+        } else {
+            StaticLayout.Builder.obtain(text, 0, text.length, paint, (measuredWidth * 0.9f).toInt()).setAlignment(Layout.Alignment.ALIGN_CENTER).build()
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         val colorWidth = (width - (paddingLeft + paddingRight)) / paints.size.toFloat()
         val viewTop = paddingTop.toFloat()
@@ -87,10 +109,10 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
             start += colorWidth
         }
 
-        val x = width * 0.5f
-        val y = height * 0.6f
-        canvas.drawText(text, x, y, outlineTextPaint)
-        canvas.drawText(text, x, y, textPaint)
+        canvas.translate(width * 0.05f,height *0.5f - textLayout.height * 0.5f)
+
+        outlineTextLayout.draw(canvas)
+        textLayout.draw(canvas)
     }
 
     override fun setSelected(selected: Boolean) {
