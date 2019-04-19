@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
 import com.moorhenapps.bluehex.R
 import com.moorhenapps.bluehex.utils.Colour
 
@@ -54,6 +55,7 @@ class SmartTogglePaletteButton @JvmOverloads constructor(context: Context, attrs
         colour = Colour.valueOf(tag as String)
 
         text = resources.getString(colour.nameRes)
+        contentDescription = text
         paints = Colour.valueOf(tag as String).colours.map {
             Paint().apply {
                 this.color = it
