@@ -27,7 +27,7 @@
     <string name="asex">Asexual</string>
     <string name="bisex">Bisexual</string>
     <string name="trans">Trans</string>
-    <string name="nonbinary">Non-Binary</string>
+    <string name="nonbinary">Non-\u200bBinary</string>
 
     <string name="slow">Slow</string>
     <string name="normal">Normal</string>
